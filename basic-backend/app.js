@@ -1,7 +1,10 @@
 import './util/load-env.js';
 import express from 'express';
 import path from 'node:path';
+import {fileURLToPath} from 'url';
 import {apiRouter} from "./api.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
