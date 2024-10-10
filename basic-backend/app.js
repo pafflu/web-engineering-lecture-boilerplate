@@ -1,16 +1,17 @@
 import './util/load-env.js';
 import express from 'express';
-import path from 'node:path';
-import {fileURLToPath} from 'url';
 import {apiRouter} from "./api.js";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// import path from 'node:path';
+// import {fileURLToPath} from 'url';
 
 const app = express();
 
 app.use('/api', apiRouter);
 
 /*########## FRONTEND AUSLIEFERN ##########
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(process.env.FRONTEND_DIST_PATH));
 app.use((req, res) => {
