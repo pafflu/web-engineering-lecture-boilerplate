@@ -14,7 +14,7 @@ router.use('/echo', echoController);
 
 router.use((req, res) => {
     res.status(404);
-    res.send('Route does not exist');
+    res.json({ message: 'Route does not exist' });
 });
 
 export { router as apiRouter };
