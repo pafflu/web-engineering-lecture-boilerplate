@@ -16,12 +16,13 @@
 </div>
 <div>
   <h2>Echos:</h2>
-  <ul *ngIf="(echos | async)!.length > 0; else empty">
-    <li *ngFor="let echo of (echos | async)">
-      {{echo.message}}
-    </li>
+  <ul>
   </ul>
-  <ng-template #empty>
+  @for (echo of (echos | async); track echo._id) {
+    <li>
+      {{ echo.message }}
+    </li>
+  } @empty {
     Keine Echos vorhanden
-  </ng-template>
+  }
 </div>

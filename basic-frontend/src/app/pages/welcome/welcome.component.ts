@@ -1,15 +1,22 @@
 import {Component, DestroyRef, inject, Input, OnInit} from '@angular/core';
+import {ApiService} from "../../shared/services/api.service";
 import {BehaviorSubject, debounceTime, skip} from "rxjs";
-import {Echo} from "../../../core/types/echo.type";
-import {ApiService} from "../../../core/services/api.service";
+import {Echo} from "../../shared/types/echo.type";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
+import {FormsModule} from "@angular/forms";
+import {AsyncPipe} from "@angular/common";
 
 @Component({
-  selector: 'app-welcome-page',
-  templateUrl: './welcome-page.component.html',
-  styleUrls: ['./welcome-page.component.css']
+  selector: 'app-welcome',
+  standalone: true,
+  imports: [
+    FormsModule,
+    AsyncPipe
+  ],
+  templateUrl: './welcome.component.html',
+  styleUrl: './welcome.component.css'
 })
-export class WelcomePageComponent implements OnInit {
+export class WelcomeComponent implements OnInit {
 
   @Input() contains?: string; // URL Query Param
 
