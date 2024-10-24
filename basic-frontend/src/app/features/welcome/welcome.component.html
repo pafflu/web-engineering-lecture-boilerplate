@@ -8,9 +8,8 @@
   </label>
   <label>
     Echos filtern:
-    <input [ngModel]="filterInput | async"
-           (ngModelChange)="filterInput.next($event)"/>
-    <button (click)="loadEchos()" disabled>Filtern</button>
+    <input [ngModel]="filterInput()"
+           (ngModelChange)="filterInput.set($event)"/>
     <button (click)="error()">error</button>
   </label>
 </div>
@@ -18,7 +17,7 @@
   <h2>Echos:</h2>
   <ul>
   </ul>
-  @for (echo of (echos | async); track echo._id) {
+  @for (echo of filteredEchos(); track echo._id) {
     <li>
       {{ echo.message }}
     </li>

@@ -1,8 +1,6 @@
-import {Component, DestroyRef, inject, Input, OnInit} from '@angular/core';
+import {Component, computed, inject, Input, OnInit, signal} from '@angular/core';
 import {ApiService} from "../../shared/services/api.service";
-import {BehaviorSubject, debounceTime, skip} from "rxjs";
 import {Echo} from "../../shared/types/echo.type";
-import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {FormsModule} from "@angular/forms";
 import {AsyncPipe} from "@angular/common";
 
@@ -21,42 +19,36 @@ export class WelcomeComponent implements OnInit {
   @Input() contains?: string; // URL Query Param
 
   private apiService = inject(ApiService);
-  private destroyRef = inject(DestroyRef);
 
   createInput = '';
-  filterInput = new BehaviorSubject<string>('');
+  filterInput = signal('');
 
-  echos = new BehaviorSubject<Echo[]>([]);
+  allEchos = signal<Echo[]>([]);
+  filteredEchos = computed<Echo[]>(() => {
+    return this.allEchos().filter(echo => echo.message.includes(this.filterInput()));
+  });
 
   ngOnInit(): void {
     void this.loadEchos(this.contains);
 
     if (this.contains) {
-      this.filterInput.next(this.contains);
+      this.filterInput.set(this.contains);
     }
-
-    this.filterInput.pipe(
-      skip(1),
-      debounceTime(400),
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe((next) => {
-      void this.loadEchos(next);
-    });
   }
 
   async addEcho(): Promise<void> {
     const newEcho = await this.apiService.createEcho({
       message: this.createInput
     });
-    const newEchoList = [...this.echos.value, newEcho];
+    const newEchoList = [...this.allEchos(), newEcho];
     newEchoList.sort((a, b) => a.message.localeCompare(b.message));
-    this.echos.next(newEchoList);
+    this.allEchos.set(newEchoList);
   }
 
   async loadEchos(filter?: string): Promise<void> {
     const echos = await this.apiService.getEchos(filter);
     echos.sort((a, b) => a.message.localeCompare(b.message));
-    this.echos.next(echos);
+    this.allEchos.set(echos);
   }
 
   async error(): Promise<void> {
