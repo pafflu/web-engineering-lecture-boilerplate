@@ -1,13 +1,13 @@
 # Web-Eng Lecture Boilerplate
 Autor(en): Lukas Paffen
 
-## FE ausführen
+## FE builden
 1. `npm i`
-2. `npm run-script build`
+2. `npm run build`
 
-## BE ausführen
+## BE ausführen & FE serven
 1. `npm i`
-2. `npm run-script start`
+2. `npm run start`
 
 ## Hinweise
 Keine

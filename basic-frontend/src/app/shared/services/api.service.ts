@@ -5,11 +5,10 @@ import {CreateEchoInput, Echo} from "../types/echo.type";
   providedIn: 'root'
 })
 export class ApiService {
-
   private readonly BASE_URL = 'http://localhost:3000/api';
 
   async post<T>(url: string, body?: object): Promise<T> {
-    const options: RequestInit = { method: 'POST' };
+    const options: RequestInit = {method: 'POST'};
     if (body) {
       options.headers = {
         'Content-Type': 'application/json',
@@ -23,7 +22,7 @@ export class ApiService {
     }
 
     const errorText = await response.text();
-    console.log('Error caught in Service:', response.status, errorText);
+    console.log('Error in ApiService:', response.status, errorText);
     throw new Error(errorText);
   }
 
