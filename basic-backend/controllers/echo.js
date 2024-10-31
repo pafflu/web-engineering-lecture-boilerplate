@@ -1,5 +1,5 @@
 import express from 'express';
-import {createEcho, deleteEcho, getEcho, queryEchos, updateEcho} from "../models/echo.js";
+import {createEcho, deleteEcho, getEcho, queryEchos, updateEcho} from '../models/echo.js';
 
 const router = express.Router();
 
