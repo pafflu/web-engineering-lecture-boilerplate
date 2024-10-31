@@ -3,6 +3,9 @@
 # DB Files
 /databases
 
+# JS Files
+*.js
+
 # Node
 /node_modules
 npm-debug.log
