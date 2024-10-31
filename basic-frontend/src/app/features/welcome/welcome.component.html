@@ -8,20 +8,20 @@
   </label>
   <label>
     Echos filtern:
-    <input [ngModel]="filterInput | async"
-           (ngModelChange)="filterInput.next($event)"/>
-    <button (click)="loadEchos()" disabled>Filtern</button>
+    <input [ngModel]="filterInput()"
+           (ngModelChange)="filterInput.set($event)"/>
     <button (click)="error()">error</button>
   </label>
 </div>
 <div>
   <h2>Echos:</h2>
-  <ul *ngIf="(echos | async)!.length > 0; else empty">
-    <li *ngFor="let echo of (echos | async)">
-      {{echo.message}}
-    </li>
+  <ul>
   </ul>
-  <ng-template #empty>
+  @for (echo of filteredEchos(); track echo._id) {
+    <li>
+      {{ echo.message }}
+    </li>
+  } @empty {
     Keine Echos vorhanden
-  </ng-template>
+  }
 </div>

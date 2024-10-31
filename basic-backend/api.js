@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 
-import { echoController } from "./controllers/echo.js";
-import { logRequest } from "./util/logger.js";
+import { echoController } from './controllers/echo.js';
+import { logRequest } from './util/logger.js';
 
 export const router = express.Router();
 
