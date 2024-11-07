@@ -29,7 +29,7 @@ export class WelcomeComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    void this.loadEchos(this.contains);
+    void this.loadEchos();
 
     if (this.contains) {
       this.filterInput.set(this.contains);
@@ -45,8 +45,8 @@ export class WelcomeComponent implements OnInit {
     this.allEchos.set(newEchoList);
   }
 
-  async loadEchos(filter?: string): Promise<void> {
-    const echos = await this.apiService.getEchos(filter);
+  async loadEchos(): Promise<void> {
+    const echos = await this.apiService.getEchos();
     echos.sort((a, b) => a.message.localeCompare(b.message));
     this.allEchos.set(echos);
   }

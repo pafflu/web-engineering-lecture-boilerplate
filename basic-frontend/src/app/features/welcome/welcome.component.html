@@ -16,7 +16,6 @@
 <div>
   <h2>Echos:</h2>
   <ul>
-  </ul>
   @for (echo of filteredEchos(); track echo._id) {
     <li>
       {{ echo.message }}
@@ -24,4 +23,5 @@
   } @empty {
     Keine Echos vorhanden
   }
+  </ul>
 </div>
